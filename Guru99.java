@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeTest;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,25 +22,23 @@ public class Guru99
  @BeforeTest
  public void beforeTest() throws InterruptedException
  {
-   System.setProperty("webdriver.chrome.driver", "C:\\Users\\Ritesh\\Documents\\Automated Testing Prm\\Browser Extention\\chromedriver.exe");
+   System.setProperty("webdriver.chrome.driver","C:\\Users\\Admin\\OneDrive\\Documents\\Automation Setup\\Browser Extension\\chromedriver.exe");
    driver=new ChromeDriver();
    Thread.sleep(1200);
    driver.manage().window().maximize();
    Thread.sleep(1200);
-   driver.get("http://links.giveawayoftheday.com/demo.guru99.com/");
-   Thread.sleep(1200);
+   //URL
+	 driver.get("https://demo.guru99.com/insurance/v1/index.php");
+	 Thread.sleep(2000);
 		  
   }
-
 
   @Test
   public void f() throws InterruptedException 
   {
-	//URL
-	 	 driver.get("https://demo.guru99.com/insurance/v1/index.php");
-	 	 Thread.sleep(2000);
-	 	 //Register
+	//*Register*********
 	 	 driver.findElement(By.xpath("/html/body/div[3]/a")).click();
+	 	 
 	 	 //1 DropDown
 	 	Select s = new Select(driver.findElement(By.xpath("//*[@id=\"user_title\"]")));
 		//step 2:Select option
@@ -98,77 +97,192 @@ public class Guru99
 		driver.findElement(By.xpath("//*[@id=\"new_user\"]/div[5]/input[2]")).click();
 		Thread.sleep(2000);
 		
-		// Enter Email Id
+		  // Enter Email Id
 		  driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("kiran18597@gmail.com");
 		  Thread.sleep(2000);
 		  
-	  // Enter Password
+	      // Enter Password
 		  driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("Kiran321");
 		  Thread.sleep(2000);
 		  
-	 //	  Click on Login Button
+	      //	  Click on Login Button
 		  driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[3]/input")).click();
 		  Thread.sleep(2000);
-		  //Agile project
-		  driver.findElement(By.xpath("/html/body/div[1]/div[2]/nav/div/div/ul/li[4]/a")).click();
+		  
+		//How to Scroll Down
+	     	 JavascriptExecutor js=(JavascriptExecutor)driver;//Type cast
+	    	 Thread.sleep(2000);
+	     	 js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+	     	 Thread.sleep(2000);
+		  
+         //*****MouseHover*******
+		  
+		    //step 1 Create object of action class
+			Actions a=new Actions(driver);
+			
+			//step 2 create object of list with WebElement
+			List<WebElement> ls=driver.findElements(By.xpath("//*[@id=\"menu\"]/li"));// li is tagname
+			
+			//step 3 store list size
+			int size=ls.size();
+			System.out.println("Number of module:"+size);
+			
+			//step4:  For loop
+			for(int i=1;i<=size;i++)
+			{
+				//wait
+				Thread.sleep(600);
+				
+				//Display module name
+				System.out.println(driver.findElement(By.xpath("//*[@id=\"menu\"]/li["+i+"]")).getText());
+				
+				//Perform Mouse Hover
+				a.moveToElement(driver.findElement(By.xpath("//*[@id=\"menu\"]/li["+i+"]"))).click().perform();
+			}
+		  
+		  
+		//HOME***********
+		  driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[1]/a")).click();
+		  Thread.sleep(1200);
+		  
+		  //RETRIVE QUOTATION ********
+		  driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[3]/a")).click();
+		  Thread.sleep(1200);
+		  
+		  //identification number enter
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[3]/form/input[1]")).sendKeys("1234");
+		  Thread.sleep(1200);
+		  //
+		  
+		  //Retrive button
+		  //  driver.findElement(By.xpath("/html/body/div[3]/div/div[3]/form/input[2]")).click();
+		  //  Thread.sleep(1200);
+		  
+		  //profile**********
+		  driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[4]/a")).click();
+		  Thread.sleep(1200);
+		  
+		  //edit profile**********
+		  driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[5]/a")).click();
+		  Thread.sleep(1200);
+		  
+		 //Inside Edit Profile>>>>>>>>>
+			//ENTER SURNAME 
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[3]/input")).sendKeys("bangera");
+				Thread.sleep(1000);
+				
+				//ENTER NAME 
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[4]/input")).sendKeys("ritesh");
+				Thread.sleep(1000);
+				
+				//ENTER PHONE NUMBER
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[5]/input")).sendKeys("99999999");
+				Thread.sleep(1000);
+				
+			 	s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[6]/select[1]")));
+				//step 2:Select option
+				s.selectByVisibleText("1993");
+				Thread.sleep(1200);
+				
+				s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[6]/select[2]")));
+				//step 2:Select option
+				s.selectByVisibleText("October");
+				Thread.sleep(1200);
+				
+				s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[6]/select[3]")));
+				//step 2:Select option
+				s.selectByVisibleText("17");
+				Thread.sleep(1200);
+				
+				//Licence type full
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[7]/input[1]")).click();
+				
+				//Occupation
+				s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[8]/select")));
+				//step 2:Select option
+				s.selectByVisibleText("2");
+				Thread.sleep(1200);
+				 s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[9]/select")));
+				//step 2:Select option
+				s.selectByVisibleText("Student");
+				Thread.sleep(2000);
+				
+				//adress
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[10]/input")).sendKeys("bhushan nagar");
+				Thread.sleep(1000);
+				
+				//city
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[11]/input")).sendKeys("solapur");
+				Thread.sleep(1000);
+				
+				//country
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[12]/input")).sendKeys("india");
+				Thread.sleep(1000);
+				
+				//postal code
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[13]/input")).sendKeys("413004");
+				Thread.sleep(1000);
+				
+				//user update
+				driver.findElement(By.xpath("/html/body/div[3]/div/div[5]/form/div[14]/input")).click();
+				Thread.sleep(1000);
+		  
+		  
+		//REQUEST QUOTATION *******
+		  driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a")).click();
+		  Thread.sleep(1200);
+		  
+		  //Inside Request Quotation
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[3]/select")).click();
+		  Thread.sleep(1200);
+		  
+		  // windscreenerpair
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[4]/input[2]")).click();
+		  Thread.sleep(1200);
+		  
+		  //Incidents
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[1]/input")).sendKeys("Damage");
+		  Thread.sleep(1200);
+		  
+		  //Registration
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[2]/input")).sendKeys("1234");
+		  Thread.sleep(1200);
+		  
+		  //anuual mileage
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[3]/input")).sendKeys("10000");
+		  Thread.sleep(1200);
+		  
+		  // estimated value
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[4]/input")).sendKeys("50000");
+		  Thread.sleep(1200);
+		  
+		  //parking location
+		  s = new Select(driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[5]/select")));
+		  //step 2:Select option
+		  s.selectByVisibleText("Public place");
 		  Thread.sleep(2000);
-		  //username
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[1]/td[2]/input")).sendKeys("kiran18597@gmail.com");
-		  Thread.sleep(2000);
-		  //password
-		  driver.findElement(By.xpath("//html/body/form/table/tbody/tr[2]/td[2]/input")).sendKeys("Kiran321");
-		  Thread.sleep(2000);
-		  //login
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[3]/td[2]/input[1]")).click();
-		  Thread.sleep(2000);
-		  //Bank project
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[1]/td[2]/input")).click();
-		  Thread.sleep(2000);
-		  //user
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[1]/td[2]/input")).sendKeys("kiran18597@gmail.com");
-		  Thread.sleep(2000);
-		  //password
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[2]/td[2]/input")).sendKeys("Kiran321");
-		  Thread.sleep(2000);
-		  //login button
-		  driver.findElement(By.xpath("/html/body/form/table/tbody/tr[3]/td[2]/input[1]")).click();
-		  Thread.sleep(2000);
+		  
+		  //start of policy year
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[6]/select[1]")).click();
+		  Thread.sleep(1200);
+		  
+		  //start of policy month
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[6]/select[2]")).click();
+		  Thread.sleep(1200);
+		  
+		 //start of policy date
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[7]/h5[6]/select[3]")).click();
+		  Thread.sleep(1200);
+		  
+		  //Save quotation
+		  driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/form/div[8]/input[3]")).click();
+		  Thread.sleep(1200);	
 	  }
+	  
   
-  @Test
-  public void mouse_hover() throws InterruptedException 
-  {
- 	 
- 	//step 1 Create object of action class
- 			Actions a=new Actions(driver);
- 			
- 			//step 2 create object of list with WebElement
- 			List<WebElement> ls=driver.findElements(By.xpath("//*[@id=\"navbar-brand-centered\"]/li"));// li is tagname
- 			
- 			//step 3 store list size
- 			int size=ls.size();
- 			System.out.println("Number of module:"+size);
- 			
- 			//step4:  For loop
- 			for(int i=1;i<=size;i++)
- 			{
- 				//wait
- 				Thread.sleep(600);
- 				
- 				//Display module name
- 				System.out.println(driver.findElement(By.xpath("//*[@id=\"navbar-brand-centered\"]/li["+i+"]")).getText());
- 				
- 				//Perform Mouse Hover
- 				a.moveToElement(driver.findElement(By.xpath("//*[@id=\"navbar-brand-centered\"]/li["+i+"]"))).click().perform();
- 			}
- 			 
-  }
-  
-
   @AfterTest
   public void afterTest() 
   {
-	  driver.close(); 
+	  driver.close();
   }
-
 }
